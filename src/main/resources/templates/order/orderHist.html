@@ -188,6 +188,13 @@
                                 )</small>
                         </div>
                     </div>
+                    <div th:if="${order.orderStatus == T(com.shop.constant.OrderStatus).ORDER and orderItem.reviewYn  == 'N'}">
+                        <button type="button" class="btn btn-outline-secondary" th:onclick="'location.href=\''+@{/reviews/new/}+@{${orderItem.orderItemId}}+'\''">리뷰 작성</button>
+                    </div>
+                    <div th:if="${order.orderStatus == T(com.shop.constant.OrderStatus).ORDER and orderItem.reviewYn == 'Y'}">
+                        <button type="button" class="btn btn-outline-secondary" th:onclick="'location.href=\''+@{/reviews/update/}+@{${orderItem.orderItemId}}+'\''">리뷰 수정</button>
+                        <button type="button" class="btn btn-outline-secondary" th:onclick="'location.href=\''+@{/reviews/delete/}+@{${orderItem.orderItemId}}+'\''">리뷰 삭제</button>
+                    </div>
                 </div>
             </div>
         </div>

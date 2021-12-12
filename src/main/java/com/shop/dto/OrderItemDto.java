@@ -15,6 +15,9 @@ public class OrderItemDto {
         this.orderPrice = orderItem.getOrderPrice();
         this.orderShippingFee = orderItem.getItem().getShippingFee();
         this.imgUrl = imgUrl;
+        this.comment = orderItem.getComment();
+        this.orderItemId = orderItem.getId();
+        this.reviewYn = orderItem.getReviewYn();
     }
 
     private String itemNm;    // 상품명
@@ -26,6 +29,12 @@ public class OrderItemDto {
     private int orderShippingFee;
 
     private String imgUrl;  // 상품 이미지 경로
+
+    private String comment;
+
+    private Long orderItemId;
+
+    private String reviewYn;
 
 
 }

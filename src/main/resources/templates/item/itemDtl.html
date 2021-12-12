@@ -18,7 +18,7 @@
                 calculateTotalPrice();
             });
 
-            $("#amountPrice").change(function(){
+            $("#amountPrice").change(function () {
                 calculateTotalPrice();
             });
         });
@@ -113,6 +113,7 @@
                 }
             });
         }
+
         function sendSms() {
             console.log("문자를 전송합니다.");
             var token = $("meta[name='_csrf']").attr("content");
@@ -122,7 +123,7 @@
 
             var url = "/sendSms";
             var paramData = {
-                from : $("#from").val(),
+                from: $("#from").val(),
                 text: $("#text").val()
             };
 
@@ -204,9 +205,11 @@
         .mgt-50 {
             margin-top: 50px;
         }
-        .pdt-20{
+
+        .pdt-20 {
             padding-top: 20px;
         }
+
         .mgr-30 {
             margin-right: 30px;
         }
@@ -222,10 +225,21 @@
             height: 400px;
         }
 
+        .reviewImgDiv {
+            margin-right: 20px;
+            width: 20%;
+        }
+
+        .reviewImg {
+            width: 150px;
+            height: 150px;
+        }
+
         .wd50 {
             height: auto;
             width: 50%;
         }
+
         .sms {
             padding: 10px;
         }
@@ -329,7 +343,27 @@
         <img th:if="${not #strings.isEmpty(itemImg.imgUrl)}" th:src="${itemImg.imgUrl}" class="rounded mgb-15"
              width="800">
     </div>
+    <div class="container">
+        <hr class="my-4">
+        <h2 class="mb-4"> 상품 리뷰 </h2>
 
+        <div th:each="orderItem : ${orderItemList}">
+            <div class="card d-flex">
+                <div class="d-flex mb-3">
+                    <div class="reviewImgDiv">
+                        <img th:src="${reviewImgDtoList[0].reviewImgUrl}" class="rounded reviewImg">
+                    </div>
+                    <div class="align-self-center w-75">
+                        <span th:text="${orderItem.comment}" class="fs24 font-weight-bold"></span>
+                        <div class="fs18 font-weight-light">
+                            <span th:text="${orderItem.email} +'님'"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 
 </html>
