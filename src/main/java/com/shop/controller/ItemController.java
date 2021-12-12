@@ -3,14 +3,12 @@ package com.shop.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shop.constant.ItemComplexSearchSortColumn;
-import com.shop.dto.ItemComplexSearchDto;
-import com.shop.dto.ItemFormDto;
-import com.shop.dto.ItemSearchDto;
-import com.shop.dto.MainItemDto;
+import com.shop.dto.*;
 import com.shop.entity.Item;
 import com.shop.repository.CategoryRepository;
 import com.shop.service.CategoryService;
 import com.shop.service.ItemService;
+import com.shop.service.ReviewService;
 import com.shop.service.TagService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +36,7 @@ public class ItemController {
     private final TagService tagService;
     private final CategoryService categoryService;
     private final ItemService itemService;
+    private final ReviewService reviewService;
 
     @GetMapping(value = "/admin/item/new")
     public String itemForm(Model model){
@@ -137,8 +136,12 @@ public class ItemController {
     @GetMapping(value = "/item/{itemId}")
     public String itemDtl(@PathVariable("itemId") Long itemId, Model model) {
         ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
-        log.info("itemFormDto : " + itemFormDto.toString());
+        List<ReviewItemDto> orderItemDtoList = reviewService.getReviewItem(itemId);
+        List<ReviewImgDto> reviewImgDtoList = reviewService.getReviewItemImg(itemId);
+
         model.addAttribute("item", itemFormDto);
+        model.addAttribute("orderItemList", orderItemDtoList);
+        model.addAttribute("reviewImgDtoList", reviewImgDtoList);
 
         return "item/itemDtl";
     }

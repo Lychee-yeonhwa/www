@@ -1,12 +1,15 @@
 package com.shop.entity;
 
+import com.shop.dto.ReviewFormDto;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Getter @Setter
+@ToString
 public class OrderItem extends BaseEntity{
 
     @Id @GeneratedValue
@@ -25,9 +28,10 @@ public class OrderItem extends BaseEntity{
 
     private int count;                       // 수량
 
-//    private LocalDateTime regTime;
-//
-//    private LocalDateTime updateTime;
+    @Column(nullable = false)
+    private String reviewYn = "N";
+
+    private String comment;
 
     // OrderItem 객체 생성
     public static OrderItem createOrderItem(Item item, int count){
@@ -50,14 +54,15 @@ public class OrderItem extends BaseEntity{
         this.getItem().addStock(count);
     }
 
-    @Override
-    public String toString() {
-        return "OrderItem{" +
-                "id=" + id +
-                ", item=" + item +
-                ", order=" + order +
-                ", orderPrice=" + orderPrice +
-                ", count=" + count +
-                '}';
+    public void createReview(ReviewFormDto reviewFormDto){
+        this.comment = reviewFormDto.getComment();
+    }
+
+    public void updateReview(ReviewFormDto reviewFormDto){
+        this.comment = reviewFormDto.getComment();
+    }
+
+    public void deleteReview(ReviewFormDto reviewFormDto){
+        this.comment = null;
     }
 }
